@@ -11,8 +11,6 @@ package switch_pkg;
 
     `include "uvm_macros.svh"
 
-    `include "interface_holder.svh"
-
     `include "switch_input.svh"
     `include "switch_output.svh"
     `include "test_seq.svh"

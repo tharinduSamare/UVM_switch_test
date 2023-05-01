@@ -27,7 +27,7 @@ class comparator extends uvm_agent;
                 `uvm_info("run",$sformatf("Passed: %s", actual_rsp.convert2string()), UVM_MEDIUM)
             end
             else begin
-                `uvm_info("run",$sformatf("Failed: Expected: %s, Actual: %s",pred_rsp.convert2string(), actual_rsp.convert2string()), UVM_MEDIUM)
+                `uvm_error("run",$sformatf("Failed: Expected: %s, Actual: %s",pred_rsp.convert2string(), actual_rsp.convert2string()))
             end
         end
     endtask

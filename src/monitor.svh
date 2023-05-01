@@ -24,19 +24,13 @@ class monitor extends uvm_agent;
     task run_phase(uvm_phase phase);
         req = new();
         rsp = new();
-
+        @(posedge i.rstn);
         forever begin
             
-            
-            @(posedge i.rstn);
+            @(posedge i.clk);
             #1;
-            req.data = i.data;
-            req.addr = i.addr;
-            
-            rsp.data_a = i.data_a;
-            rsp.addr_b = i.addr_b;
-            rsp.data_b = i.data_b;
-            rsp.addr_b = i.addr_b;
+            req.load_data(i.vld, i.addr, i.data);
+            rsp.load_data(i.addr_a, i.data_a, i.addr_b, i.data_b);
             
             rsp_p.write(rsp);
             req_p.write(req);

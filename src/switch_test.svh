@@ -10,10 +10,9 @@ class switch_test extends uvm_test;
     endfunction:new
 
     function void build_phase(uvm_phase phase);
-        `uvm_info("check", "started build phase", UVM_DEBUG)
         super.build_phase(phase);
+        switch_pkg::verbose = 1;
         env = switch_env::type_id::create("env",this);
-        `uvm_info("check", "finished build phase", UVM_DEBUG)
     endfunction:build_phase
 
 endclass:switch_test

@@ -1,4 +1,7 @@
+`include "uvm_macros.svh"
+
 class switch_env extends uvm_env;
+
     `uvm_component_utils(switch_env)
     
     driver  drv;
@@ -13,7 +16,6 @@ class switch_env extends uvm_env;
     printer #(switch_input)printer_req;
     printer #(switch_output)printer_rsp;
 
-    // uvm_tlm_fifo #(switch_input) sequencer2drv;
     uvm_tlm_fifo #(switch_output) pred2comp_f;
 
     function new(string name="", uvm_component parent);
@@ -30,6 +32,7 @@ class switch_env extends uvm_env;
         mon  = monitor::type_id::create("monitor",this);
         pred = predictor::type_id::create("pred",this);
         comp = comparator::type_id::create("comp",this);
+        cov  = coverage::type_id::create("cov",this);
         pred2comp_f = new("pred2comp_f",this);
 
         printer_req = printer #(switch_input) ::type_id::create("printer_req",this);
@@ -43,8 +46,8 @@ class switch_env extends uvm_env;
 
         mon.req_p.connect(pred.req_f.analysis_export);
         mon.rsp_p.connect(comp.actual_rsp_f.analysis_export);
-        pred.rsp_p.connect(pred2comp_f.put_export);
-        comp.pred_rsp_p.connect(pred2comp_f.get_export);
+        pred.rsp_p.connect(pred2comp_f.blocking_put_export);
+        comp.pred_rsp_p.connect(pred2comp_f.blocking_get_export);
 
         mon.req_p.connect(cov.req_f.analysis_export);
         mon.rsp_p.connect(cov.rsp_f.analysis_export);
