@@ -20,6 +20,8 @@ class coverage extends uvm_agent;
         coverpoint addr {
             bins address_a = {[0:ADDR_DIV]};
             bins address_b = {[ADDR_DIV:{ADDR_WIDTH{1'b1}}]};
+            bins a2b = ([0:ADDR_DIV] => [ADDR_DIV:{ADDR_WIDTH{1'b1}}]);
+            bins b2a = ([ADDR_DIV:{ADDR_WIDTH{1'b1}}] => [0:ADDR_DIV]);
         }
     endgroup
 
